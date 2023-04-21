@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Homepage</title>
 </head>
-<body>
-This is a homepage.
-</body>
+    <body>
+        <div>
+            Welcome ${username} to the homepage!
+
+        </div>
+    </body>
 </html>

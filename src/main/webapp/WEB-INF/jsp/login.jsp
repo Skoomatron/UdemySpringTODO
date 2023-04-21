@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
-<body>
-This is a login page for ${name}
-</body>
+    <body>
+    <pre>
+        ${errorMessage}
+    </pre>
+        <form method="post">
+            User Name: <input type="text" name="username">
+            Password: <input type="password" name="password">
+            <input type="submit">
+        </form>
+    </body>
 </html>
