@@ -5,6 +5,6 @@
     <title>Homepage</title>
 </head>
 <body>
-    This is a homepage.
+This is a homepage.
 </body>
 </html>
