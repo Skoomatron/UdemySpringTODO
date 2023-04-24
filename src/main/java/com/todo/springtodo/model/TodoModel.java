@@ -3,14 +3,14 @@ package com.todo.springtodo.model;
 import java.time.LocalDate;
 
 public class TodoModel {
-    private static int id = 0;
+    private int id;
     private String username;
     private String description;
     private LocalDate dueDate;
     private boolean isComplete;
 
-    public TodoModel(String username, String description, LocalDate dueDate, boolean isComplete) {
-        this.id = id++;
+    public TodoModel(int id, String username, String description, LocalDate dueDate, boolean isComplete) {
+        this.id = id;
         this.username = username;
         this.description = description;
         this.dueDate = dueDate;

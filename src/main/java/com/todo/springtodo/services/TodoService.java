@@ -10,13 +10,19 @@ import java.util.List;
 @Service
 public class TodoService {
     private static List<TodoModel> todos = new ArrayList<>();
+    private static int todosCount = 1;
     static {
-        todos.add(new TodoModel("Trevor", "Learn to dunk.", LocalDate.now().plusMonths(1), false));
-        todos.add(new TodoModel("Trevor", "Karate chop a mountains.", LocalDate.now().plusMonths(2), false));
-        todos.add(new TodoModel("Trevor", "Plant garden.", LocalDate.now().plusMonths(4), false));
+        todos.add(new TodoModel(todosCount++,"Trevor", "Learn to dunk.", LocalDate.now().plusMonths(1), false));
+        todos.add(new TodoModel(todosCount++,"Trevor", "Karate chop a mountains.", LocalDate.now().plusMonths(2), false));
+        todos.add(new TodoModel(todosCount++,"Trevor", "Plant garden.", LocalDate.now().plusMonths(4), false));
     }
 
     public List<TodoModel> findByUsername(String username) {
         return todos;
+    }
+
+    public void addTodo(String username, String description, LocalDate targetDate, boolean completed) {
+        TodoModel todoModel = new TodoModel(todosCount++, username, description, targetDate, completed);
+        todos.add(todoModel);
     }
 }
