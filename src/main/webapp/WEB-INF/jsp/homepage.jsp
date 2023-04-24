@@ -5,9 +5,8 @@
     <title>Homepage</title>
 </head>
     <body>
-        <div>
-            Welcome ${username} to the homepage!
-
-        </div>
+        <h2>Welcome ${username} to the homepage!</h2>
+        <hr>
+        <div><a href="listTodos">View Your Todos</a></div>
     </body>
 </html>
