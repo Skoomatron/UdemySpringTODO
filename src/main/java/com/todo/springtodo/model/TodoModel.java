@@ -1,10 +1,13 @@
 package com.todo.springtodo.model;
 
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class TodoModel {
     private int id;
     private String username;
+    @Size(min=5, message = "Minimum 5 Characters")
     private String description;
     private LocalDate dueDate;
     private boolean isComplete;
