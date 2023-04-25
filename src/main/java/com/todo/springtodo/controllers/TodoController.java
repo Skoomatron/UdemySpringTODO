@@ -8,12 +8,19 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 public class TodoController {
+
+    private TodoService todoService;
+
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
+    }
 
     @RequestMapping("/listTodos")
     public String listAllTodos(ModelMap model) {
@@ -32,18 +39,16 @@ public class TodoController {
 
     @RequestMapping(value="/addTodo", method = RequestMethod.POST)
     public String submitTodo(ModelMap modelMap, @Valid TodoModel todoModel, BindingResult result) {
-
         if (result.hasErrors()) {
             return "addTodo";
         }
-
         todoService.addTodo((String)modelMap.get("username"), todoModel.getDescription(), LocalDate.now().plusMonths(1), false);
         return "redirect:listTodos";
     }
 
-    private TodoService todoService;
-
-    public TodoController(TodoService todoService) {
-        this.todoService = todoService;
+    @RequestMapping("deleteTodo")
+    public String deleteTodo(@RequestParam int id) {
+        todoService.deleteTodo(id);
+        return "redirect:listTodos";
     }
 }
