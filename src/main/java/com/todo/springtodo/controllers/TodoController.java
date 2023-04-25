@@ -3,17 +3,21 @@ package com.todo.springtodo.controllers;
 import com.todo.springtodo.model.TodoModel;
 import com.todo.springtodo.services.TodoService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
+@SessionAttributes("username")
 public class TodoController {
 
     private TodoService todoService;
@@ -23,10 +27,16 @@ public class TodoController {
     }
 
     @RequestMapping("listTodos")
-    public String listAllTodos(ModelMap model) {
-        List<TodoModel> todos = todoService.findByUsername("test");
-        model.addAttribute("todos", todos);
+    public String listAllTodos(ModelMap modelMap) {
+        String username = getUsername(modelMap);
+        List<TodoModel> todos = todoService.findByUsername(username);
+        modelMap.addAttribute("todos", todos);
         return "list";
+    }
+
+    private String getUsername(ModelMap modelMap) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
     }
 
     @RequestMapping(value="addTodo", method = RequestMethod.GET)
