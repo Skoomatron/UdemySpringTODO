@@ -7,6 +7,6 @@
     <link href="webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-    <title>Add Todo</title>
+    <title>Manage Your Todos</title>
 </head>
 <body>

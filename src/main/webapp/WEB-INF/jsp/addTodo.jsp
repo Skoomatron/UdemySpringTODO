@@ -20,4 +20,11 @@
         <input type="submit" class="btn btn-success"/>
     </form:form>
 </div>
-<%@ include file="common/footer.jspf"%>>
+
+<%@ include file="common/footer.jspf"%>
+
+<script type="text/javascript">
+    $('#dueDate').datepicker({
+        format: 'yyyy-mm-dd',
+    });
+</script>
