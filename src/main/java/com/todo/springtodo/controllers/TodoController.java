@@ -22,14 +22,14 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    @RequestMapping("/listTodos")
+    @RequestMapping("listTodos")
     public String listAllTodos(ModelMap model) {
         List<TodoModel> todos = todoService.findByUsername("test");
         model.addAttribute("todos", todos);
         return "list";
     }
 
-    @RequestMapping(value="/addTodo", method = RequestMethod.GET)
+    @RequestMapping(value="addTodo", method = RequestMethod.GET)
     public String addTodo(ModelMap modelMap) {
         String username = (String)modelMap.get("username");
         TodoModel todoModel = new TodoModel(0, username, "", LocalDate.now().plusMonths(2), false);
@@ -37,18 +37,36 @@ public class TodoController {
         return "addTodo";
     }
 
-    @RequestMapping(value="/addTodo", method = RequestMethod.POST)
+    @RequestMapping(value="addTodo", method = RequestMethod.POST)
     public String submitTodo(ModelMap modelMap, @Valid TodoModel todoModel, BindingResult result) {
         if (result.hasErrors()) {
             return "addTodo";
         }
-        todoService.addTodo((String)modelMap.get("username"), todoModel.getDescription(), LocalDate.now().plusMonths(1), false);
+        todoService.addTodo((String)modelMap.get("username"), todoModel.getDescription(), todoModel.getDueDate(), false);
         return "redirect:listTodos";
     }
 
     @RequestMapping("deleteTodo")
     public String deleteTodo(@RequestParam int id) {
         todoService.deleteTodo(id);
+        return "redirect:listTodos";
+    }
+
+    @RequestMapping(value="updateTodo", method = RequestMethod.GET)
+    public String updateTodo(@RequestParam int id, ModelMap modelMap) {
+        TodoModel todoModel = todoService.findTodo(id);
+        modelMap.addAttribute("todoModel", todoModel);
+        return "addTodo";
+    }
+
+    @RequestMapping(value="updateTodo", method = RequestMethod.POST)
+    public String postUpdate(ModelMap modelMap, @Valid TodoModel todoModel, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addTodo";
+        }
+        String username = (String)modelMap.get("username");
+        todoModel.setUsername(username);
+        todoService.updateTodo(todoModel);
         return "redirect:listTodos";
     }
 }
