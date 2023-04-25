@@ -1,14 +1,23 @@
 package com.todo.springtodo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
+@Entity
 public class TodoModel {
+
+    @Id
+    @GeneratedValue
     private int id;
-    private String username;
+
     @Size(min=5, message = "Minimum 5 Characters")
     private String description;
+
+    private String username;
     private LocalDate dueDate;
     private boolean isComplete;
 
@@ -18,6 +27,10 @@ public class TodoModel {
         this.description = description;
         this.dueDate = dueDate;
         this.isComplete = isComplete;
+    }
+
+    public TodoModel() {
+
     }
 
     public int getId() {
